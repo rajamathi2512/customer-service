@@ -31,7 +31,7 @@ public class CustomersEndpointTest {
     @Autowired
     MockMvc mockMvc;
     private Customer customer;
-    private static final String CUSTOMER_ENDPOINT = "/customer/";
+    private static final String CUSTOMER_ENDPOINT = "/customers/";
     @Autowired
     ObjectMapper objectMapper;
 
