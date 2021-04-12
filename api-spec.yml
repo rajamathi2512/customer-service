@@ -1,0 +1,166 @@
+swagger: '2.0'
+info:
+  description: Api to retrieve customers details, create and update custoner information
+  version: '1.0'
+  title: Customner Service Api
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+host: 'localhost:8085'
+basePath: /
+tags:
+  - name: customers-service
+    description: Customers Endpoint
+paths:
+  /customers:
+    get:
+      tags:
+        - customers-endpoint
+      summary: Retrieves a customer details by first name And/Or last name
+      operationId: retrieveCustomerByNameUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: firstName
+          in: query
+          description: firstName
+          required: true
+          type: string
+        - name: lastName
+          in: query
+          description: lastName
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Customer found
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Customer'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - customers-endpoint
+      summary: Save customer data and returns saved customer details
+      operationId: createCustomerUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: customer
+          description: customer
+          required: true
+          schema:
+            $ref: '#/definitions/Customer'
+      responses:
+        '201':
+          description: Created customer data
+          schema:
+            $ref: '#/definitions/Customer'
+        '400':
+          description: Cannot create customer
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/customers/{id}':
+    get:
+      tags:
+        - customers-endpoint
+      summary: Retrieves a customer details by given customerId
+      operationId: retrieveCustomerByIdUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Customer found
+          schema:
+            $ref: '#/definitions/Customer'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Customer not found!
+    put:
+      tags:
+        - customers-endpoint
+      summary: 'Update Customer address data and customer details '
+      operationId: updateCustomerAddressUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: string
+        - in: body
+          name: address
+          description: address
+          required: true
+          schema:
+            $ref: '#/definitions/Address'
+      responses:
+        '201':
+          description: Created
+        '202':
+          description: Updated customer address data
+          schema:
+            $ref: '#/definitions/Customer'
+        '400':
+          description: Cannot update customer
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+definitions:
+  Address:
+    type: object
+    properties:
+      doorNo:
+        type: string
+      id:
+        type: string
+      postalCode:
+        type: string
+      streetName:
+        type: string
+  Customer:
+    type: object
+    properties:
+      age:
+        type: string
+      currentAddress:
+        $ref: '#/definitions/Address'
+      firstName:
+        type: string
+      id:
+        type: string
+      lastName:
+        type: string
