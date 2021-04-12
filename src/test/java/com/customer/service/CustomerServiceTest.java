@@ -58,7 +58,7 @@ public class CustomerServiceTest {
     public void testRetrieveCustomerById_Throw_Exception() {
         when(customerRepository.findById("cc42cd8d-009a-4dfd-9a71-6a0ea8202a27")).thenThrow(new CustomerNotFoundException(
                 "cc42cd8d-009a-4dfd-9a71-6a0ea8202a27"));
-
+        customerService.retrieveCustomerById("cc42cd8d-009a-4dfd-9a71-6a0ea8202a27");
     }
 
     @Test
