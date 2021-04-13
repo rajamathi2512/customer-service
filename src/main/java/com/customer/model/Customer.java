@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -37,8 +38,7 @@ public class Customer implements Serializable {
     @NotBlank
     private String lastName;
     private String age;
-    @OneToOne(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Address currentAddress;
 
 }
